@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner console = new Scanner(System.in);
+        double balance = 1000;
+        boolean exit = false;
+        String correctPincode = "1212";
+        int chanceAttemp = 3;
+
+        while (chanceAttemp > 0) {
+            System.out.print("Ваш PIN: ");
+            String enteredPincode = console.nextLine();
+            if(enteredPincode.equals(correctPincode)){
+                System.out.println("Ваш PIN принят!");
+                break;
+            }
+            else {
+                chanceAttemp--;
+                System.out.println("Неверный PIN у вас осталась попытка "+chanceAttemp);
+                if(chanceAttemp == 0){
+                    System.out.println("Вы прывысили количество попыток PIN!");
+                    console.close();
+                    exit = true;
+                    break;
+                }
+            }
+        }
+        while (!exit) {
+            System.out.println("Введите команду: (1 - Проверить баланс, 2 - Снять деньги, 3 - Внести деньги, 4 - Завершить работу)");
+            int input = console.nextInt();
+            switch (input) {
+                case 1:
+                    System.out.println("Ваш текущий баланс:" + balance);
+                    break;
+
+                case 2: {
+                    System.out.println("Вводите сумму которые вы хотите снять:");
+                    double amount = console.nextDouble();
+                    if (amount < balance) {
+                        balance -= amount;
+                    }
+                    else {
+                        System.out.println("У вас нет такая сумма");
+                    }
+                    System.out.println("Ваш текущий баланс:" + balance);
+                    break;
+                }
+                case 3: {
+                    System.out.println("Вводите сумму которые вы хотите внести");
+                    double amount = console.nextDouble();
+                    balance += amount;
+                    System.out.println("Ваш текущий счет:" + (balance ));
+                    break;
+                }
+                case 4: {
+                    System.out.println("Завершить операцию ");
+                    exit = true;
+                    break;
+                }
+            }
+
+        }
+    }
+}
